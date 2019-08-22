@@ -1,0 +1,8 @@
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 17 : Found label after column 1. (COUNT)
+Message[302] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 23 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 27 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 30 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 42 : Found label after column 1. (LOOP0)
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 46 : Found label after column 1. (LOOP1)
+Message[302] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 56 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] /Users/luchixiang/MPLABXProjects/experiment2.X/newpic_8b_simple.asm 60 : Found directive in column 1. (END)
