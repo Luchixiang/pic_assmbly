@@ -1,4 +1,4 @@
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  1
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -24,98 +24,87 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00007 ; __config 0x3FFF
 8008   3FFF           00008  __CONFIG _CONFIG2, _WRT_OFF & _VCAPEN_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_ON
                       00009 
-                      00010 RES_VECT  CODE    0x0000            ; processor reset vector
-0000   2???           00011     GOTO    START                   ; go to beginning of program
-                      00012 
+                      00010 RES_VECT  CODE    0x0000            ; processor reset vector 
+0000   3180           00011     PAGESEL START
+0001   2???           00012     GOTO    START                   ; go to beginning of program
                       00013 
-                      00014 MAIN_PROG CODE                      ; let linker place main program
-                      00015 
-  00000070            00016 COUNT EQU 70H
-                      00017  
-                      00018     UDATA_SHR
-Warning[207]: Found label after column 1. (RESERVE1)
-0000                  00019         RESERVE1 RES 1H
-Warning[207]: Found label after column 1. (RESERVE2)
-0001                  00020         RESERVE2 RES 2H
-                      00021  
-                      00022  
-                      00023 isr CODE 0x40
-0040   3001           00024     MOVLW B'00000001'
-0041   190B           00025     BTFSC INTCON, TMR0IF
-0042   2???           00026     CALL LIGHT1
-0043   0022           00027     BANKSEL LATA
+                      00014 
+                      00015 MAIN_PROG CODE                      ; let linker place main program
+                      00016 
+  00000070            00017 COUNT EQU 70H
+                      00018  
+                      00019 isr CODE 0x40
+0040   0020           00020     BANKSEL INTCON
+0041   190B           00021     BTFSC INTCON,TMR0IF
+0042   2???           00022     call LIGHT2
+0043   110B           00023     BCF INTCON,TMR0IF ;?????
+0044   0180           00024     CLRF W
+0045   0020           00025     BANKSEL INTCON
+0046   188B           00026     BTFSC INTCON,INTF
+0047   2???           00027     CALL LIGHT1
+0048   108B           00028     BCF INTCON,INTF ;?????
+0049   0009           00029     RETFIE
+004A                  00030 LIGHT2:;;????
+004A   3002           00031     MOVLW B'000000010'
+004B   0022           00032     BANKSEL LATA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0044   068C           00028     XORWF LATA,1
-0045   0020           00029     BANKSEL INTCON
-0046   110B           00030     BCF INTCON,2
-0047   188B           00031     BTFSC INTCON,INTF
-0048   2???           00032     CALL LIGHT2
-0049   0009           00033     RETFIE
-                      00034 
-004A                  00035 LIGHT1
-004A   3002           00036     MOVLW B'00000010'
-004B   0022           00037     BANKSEL LATA
+004C   068C           00033     XORWF LATA,1    
+004D   0008           00034     RETURN
+004E                  00035 LIGHT1:;;int????
+004E   0021           00036     BANKSEL OPTION_REG 
+004F   30C4           00037     MOVLW B'11000100' ;1:256
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004C   068C           00038     XORWF LATA,1
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  2
+0050   0095           00038     MOVWF OPTION_REG ;????
+0051   0008           00039     RETURN
+                      00040 
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-004D   0008           00039     RETURN
-004E                  00040 LIGHT2 
-004E   3002           00041     MOVLW B'00000010'
-004F   0022           00042     BANKSEL LATA
+0052                  00041 START
+                      00042     
+0052   0021           00043     BANKSEL OSCCON  ; CP
+0053   3050           00044     MOVLW B'01010000';500kHZ
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0050   068C           00043     XORWF LATA,1
-0051   0008           00044     RETURN
-                      00045     
-0052                  00046 START
-                      00047     
-0052   0021           00048     BANKSEL OSCCON  ; CP
-0053   3050           00049     MOVLW B'01010000';500kHZ
+0054   0099           00045     MOVWF OSCCON
+                      00046     
+0055   0021           00047     BANKSEL OPTION_REG 
+0056   30C7           00048     MOVLW B'11000111' ;1:256
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0054   0099           00050     MOVWF OSCCON
-                      00051     
-0055   0021           00052     BANKSEL OPTION_REG 
-0056   3040           00053     MOVLW B'01000000' ;1:256
+0057   0095           00049     MOVWF OPTION_REG
+0058   0023           00050     BANKSEL ANSELA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0057   0095           00054     MOVWF OPTION_REG
-0058   0023           00055     BANKSEL ANSELA
+0059   018C           00051     CLRF ANSELA
+                      00052     
+005A   0021           00053     BANKSEL TRISA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0059   018C           00056     CLRF ANSELA
-                      00057     
-005A   0021           00058     BANKSEL TRISA
+005B   018C           00054     CLRF TRISA
+                      00055     
+005C   0020           00056     BANKSEL PORTA
+005D   3000           00057     MOVLW H'00'
+005E   008C           00058     MOVWF PORTA
+005F   0020           00059     BANKSEL INTCON
+0060   30F0           00060     MOVLW B'11110000'
+0061   008B           00061     MOVWF INTCON
+0062   0021           00062     BANKSEL TRISB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005B   018C           00059     CLRF TRISA
-                      00060     
-005C   0020           00061     BANKSEL PORTA
-005D   30FF           00062     MOVLW H'ff'
-005E   008C           00063     MOVWF PORTA
-005F   0020           00064     BANKSEL INTCON
-0060   30F8           00065     MOVLW B'11111000'
-0061   008B           00066     MOVWF INTCON
-                      00067 
-0062                  00068 MAINLOOP
-0062   0000           00069     NOP
-                      00070 ;    MOVLW 0x02
-                      00071 ;    MOVWF COUNT
-                      00072 ;    LOOP0
-                      00073 ;       BANKSEL TMR0
-                      00074 ;       MOVLW B'00001100';256-244 
-                      00075 ;       MOVWF TMR0
-                      00076 ;           LOOP1
-                      00077 ;               BTFSS  INTCON,2
-                      00078 ;               GOTO LOOP1
-                      00079 ;    CLRF INTCON
-                      00080 ;    DECFSZ COUNT,1
-                      00081 ;    GOTO LOOP0
-0063   2???           00082     GOTO MAINLOOP                         ; loop forever
-                      00083     
+0063   140D           00063     BSF TRISB,0
+0064   0023           00064     BANKSEL ANSELB
+0065   3000           00065     MOVLW h'00'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0066   008D           00066     MOVWF ANSELB
+                      00067 ;    BANKSEL LATA
+0067   0027           00068     BANKSEL IOCBN
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0068   1415           00069     BSF IOCBN,0
+0069                  00070 MAINLOOP
+0069   0063           00071     SLEEP
+006A   2???           00072     GOTO MAINLOOP                         ; loop forever
 Warning[205]: Found directive in column 1. (END)
-3FE4 3FFF             00084 END
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  3
+3FE4 3FFF             00073 END
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  3
 
 
 SYMBOL TABLE
@@ -174,7 +163,7 @@ ANSB6                             00000006
 ANSELA                            0000018C
 ANSELB                            0000018D
 APFCON                            0000011D
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  4
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  4
 
 
 SYMBOL TABLE
@@ -233,7 +222,7 @@ C1SYNC                            00000000
 C1ZLF                             00000003
 C2HYS                             00000001
 C2IE                              00000006
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  5
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  5
 
 
 SYMBOL TABLE
@@ -292,7 +281,7 @@ C4POL                             00000004
 C4SP                              00000002
 C4SYNC                            00000000
 C4ZLF                             00000003
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  6
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  6
 
 
 SYMBOL TABLE
@@ -351,7 +340,7 @@ CLKRDC1                           00000004
 CLKRDIV0                          00000000
 CLKRDIV1                          00000001
 CLKRDIV2                          00000002
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  7
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  7
 
 
 SYMBOL TABLE
@@ -410,7 +399,7 @@ EEDATH                            00000194
 EEDATL                            00000193
 EEIE                              00000004
 EEIF                              00000004
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  8
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  8
 
 
 SYMBOL TABLE
@@ -469,7 +458,7 @@ INLVLC3                           00000003
 INLVLC4                           00000004
 INLVLC5                           00000005
 INLVLC6                           00000006
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE  9
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE  9
 
 
 SYMBOL TABLE
@@ -528,7 +517,7 @@ IOCBN5                            00000005
 IOCBN6                            00000006
 IOCBN7                            00000007
 IOCBP                             00000394
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 10
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 10
 
 
 SYMBOL TABLE
@@ -587,7 +576,7 @@ LATA1                             00000001
 LATA2                             00000002
 LATA3                             00000003
 LATA4                             00000004
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 11
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 11
 
 
 SYMBOL TABLE
@@ -615,10 +604,10 @@ LATC5                             00000005
 LATC6                             00000006
 LATC7                             00000007
 LFIOFR                            00000001
-LIGHT1                            0000004A
-LIGHT2                            0000004E
+LIGHT1                            0000004E
+LIGHT2                            0000004A
 LWLO                              00000005
-MAINLOOP                          00000062
+MAINLOOP                          00000069
 MC1OUT                            00000000
 MC2OUT                            00000001
 MC3OUT                            00000002
@@ -646,7 +635,7 @@ ODCONA0                           00000000
 ODCONA1                           00000001
 ODCONA2                           00000002
 ODCONA3                           00000003
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 12
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 12
 
 
 SYMBOL TABLE
@@ -705,7 +694,7 @@ P1ASDOV                           00000000
 P1ASDSC1                          00000001
 P1ASDSC2                          00000002
 P1ASDSC3                          00000003
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 13
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 13
 
 
 SYMBOL TABLE
@@ -764,7 +753,7 @@ P1POFST                           00000007
 P1POLA                            00000000
 P1POLB                            00000001
 P1POLC                            00000002
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 14
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 14
 
 
 SYMBOL TABLE
@@ -823,7 +812,7 @@ P2CSRC1                           00000001
 P2DBFE                            00000005
 P2DBRE                            00000004
 P2DCPOL                           00000005
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 15
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 15
 
 
 SYMBOL TABLE
@@ -882,7 +871,7 @@ P2REBSC3                          00000003
 P2REBSC4                          00000004
 P2REBSIN                          00000007
 P2SSYNC                           00000007
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 16
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 16
 
 
 SYMBOL TABLE
@@ -941,7 +930,7 @@ P3INPOL                           00000006
 P3LSMEN                           00000001
 P3MDLBIT                          00000005
 P3MDLEN                           00000007
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 17
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 17
 
 
 SYMBOL TABLE
@@ -1000,7 +989,7 @@ PCH1                              00000001
 PCIE                              00000006
 PCL                               00000002
 PCLATH                            0000000A
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 18
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 18
 
 
 SYMBOL TABLE
@@ -1059,7 +1048,7 @@ PSMC1DBF1                         00000001
 PSMC1DBF2                         00000002
 PSMC1DBF3                         00000003
 PSMC1DBF4                         00000004
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 19
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 19
 
 
 SYMBOL TABLE
@@ -1118,7 +1107,7 @@ PSMC1PH13                         00000005
 PSMC1PH14                         00000006
 PSMC1PH15                         00000007
 PSMC1PH2                          00000002
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 20
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 20
 
 
 SYMBOL TABLE
@@ -1177,7 +1166,7 @@ PSMC1TMR3                         00000003
 PSMC1TMR4                         00000004
 PSMC1TMR5                         00000005
 PSMC1TMR6                         00000006
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 21
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 21
 
 
 SYMBOL TABLE
@@ -1236,7 +1225,7 @@ PSMC2DC1                          00000001
 PSMC2DC10                         00000002
 PSMC2DC11                         00000003
 PSMC2DC12                         00000004
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 22
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 22
 
 
 SYMBOL TABLE
@@ -1295,7 +1284,7 @@ PSMC2PR10                         00000002
 PSMC2PR11                         00000003
 PSMC2PR12                         00000004
 PSMC2PR13                         00000005
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 23
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 23
 
 
 SYMBOL TABLE
@@ -1354,7 +1343,7 @@ PSMC3BLKF5                        00000005
 PSMC3BLKF6                        00000006
 PSMC3BLKF7                        00000007
 PSMC3BLKR                         0000086B
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 24
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 24
 
 
 SYMBOL TABLE
@@ -1413,7 +1402,7 @@ PSMC3EN                           00000007
 PSMC3FEBS                         00000859
 PSMC3FFA                          0000086D
 PSMC3FFA0                         00000000
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 25
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 25
 
 
 SYMBOL TABLE
@@ -1472,7 +1461,7 @@ PSMC3SIE                          00000002
 PSMC3SIF                          00000002
 PSMC3STR0                         0000086E
 PSMC3STR1                         0000086F
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 26
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 26
 
 
 SYMBOL TABLE
@@ -1531,7 +1520,7 @@ RCIDL                             00000006
 RCIE                              00000005
 RCIF                              00000005
 RCREG                             00000199
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 27
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 27
 
 
 SYMBOL TABLE
@@ -1542,8 +1531,6 @@ RCSTA                             0000019D
 RCSTA1                            0000019D
 RD                                00000000
 RE3                               00000003
-RESERVE1                          00000000
-RESERVE2                          00000001
 RSEN                              00000001
 RX9                               00000006
 RX9D                              00000000
@@ -1590,14 +1577,14 @@ SLRCONC5                          00000005
 SLRCONC6                          00000006
 SLRCONC7                          00000007
 SMP                               00000007
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 28
+SP                                00000006
+SP1BRG                            0000019B
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 28
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-SP                                00000006
-SP1BRG                            0000019B
 SP1BRGH                           0000019C
 SP1BRGL                           0000019B
 SPBRG                             0000019B
@@ -1649,14 +1636,14 @@ SSPCON1                           00000215
 SSPCON2                           00000216
 SSPCON3                           00000217
 SSPEN                             00000005
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 29
+SSPM0                             00000000
+SSPM1                             00000001
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 29
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-SSPM0                             00000000
-SSPM1                             00000001
 SSPM2                             00000002
 SSPM3                             00000003
 SSPMSK                            00000213
@@ -1708,14 +1695,14 @@ TMR1GIF                           00000007
 TMR1H                             00000017
 TMR1IE                            00000000
 TMR1IF                            00000000
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 30
+TMR1L                             00000016
+TMR1ON                            00000000
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 30
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-TMR1L                             00000016
-TMR1ON                            00000000
 TMR2                              0000001A
 TMR2IE                            00000001
 TMR2IF                            00000001
@@ -1767,14 +1754,14 @@ TUN5                              00000005
 TX1REG                            0000019A
 TX1STA                            0000019E
 TX9                               00000006
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 31
+TX9D                              00000000
+TXEN                              00000005
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 31
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-TX9D                              00000000
-TXEN                              00000005
 TXIE                              00000004
 TXIF                              00000004
 TXREG                             0000019A
@@ -1826,14 +1813,14 @@ WR                                00000001
 WREG                              00000009
 WREG_SHAD                         00000FE5
 WREN                              00000002
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 32
+WRERR                             00000003
+WUE                               00000001
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 32
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-WRERR                             00000003
-WUE                               00000001
 Z                                 00000002
 Z_SHAD                            00000002
 _BOREN_NSLEEP                     00003DFF
@@ -1885,20 +1872,20 @@ _WDTE_NSLEEP                      00003FF7
 _WDTE_OFF                         00003FE7
 _WDTE_ON                          00003FFF
 _WDTE_SWDTEN                      00003FEF
-MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-21-2019  21:24:29         PAGE 33
+_WRT_ALL                          00003FFC
+_WRT_BOOT                         00003FFE
+MPASM 5.84  /USERS/LUCHIXIANG/MPLABXPROJECTS   8-22-2019  9:05:32         PAGE 33
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-_WRT_ALL                          00003FFC
-_WRT_BOOT                         00003FFE
 _WRT_HALF                         00003FFD
 _WRT_OFF                          00003FFF
 __16F1786                         00000001
 
 Errors   :     0
-Warnings :     3 reported,     0 suppressed
-Messages :     7 reported,     0 suppressed
+Warnings :     1 reported,     0 suppressed
+Messages :     9 reported,     0 suppressed
 
 

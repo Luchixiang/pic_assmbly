@@ -1,10 +1,15 @@
-Warning[207] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 19 : Found label after column 1. (RESERVE1)
-Warning[207] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 20 : Found label after column 1. (RESERVE2)
-Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 28 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 38 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 30 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 33 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 40 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 45 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 50 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 54 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 56 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 59 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[205] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 84 : Found directive in column 1. (END)
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 58 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 61 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 63 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 65 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 73 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 74 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 77 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 82 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] /Users/luchixiang/MPLABXProjects/experiment3.X/newpic_8b_simple.asm 98 : Found directive in column 1. (END)
