@@ -1,0 +1,670 @@
+#include "p16F1786.inc"
+; CONFIG1
+; __config 0xFFE7
+ __CONFIG _CONFIG1, _FOSC_ECH & _WDTE_OFF & _PWRTE_OFF & _MCLRE_ON & _CP_OFF & _CPD_OFF & _BOREN_ON & _CLKOUTEN_OFF & _IESO_ON & _FCMEN_ON
+; CONFIG2
+; __config 0xFFFF
+ __CONFIG _CONFIG2, _WRT_OFF & _VCAPEN_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_ON
+    ; TODO INSERT CONFIG CODE HERE USING CONFIG BITS GENERATOR
+    udata_shr
+	 offsetA res 1h
+	 offsetB res 1h
+    	 delaytime res 1h
+    	 led0 res 1h
+    	 led1 res 1h
+    	 led2 res 1h
+    	 led3 res 1h
+	 delay res 1h
+    	 BUTTONX res 1h
+    	 BUTTONNUM res 1h
+    	 PREBUTTONX res 1h
+	 LASTBUTTON res 1h
+    	 FLAG res 1h
+	 FLAG1 res 1h
+	 STATE res 1h
+ udata 
+ count0 res 1h
+ count1 res 1h
+ count2 res 1h
+ count3 res 1h
+ count4 res 1h
+ count5 res 1h
+ count6 res 1h
+ count7 res 1h
+ count8 res 1h
+ count9 res 1h
+ count10 res 1h
+ COUNTDOUBLE res 1h
+ COUNTLONG res 1h
+ FLAGCOUNT res 1h
+RES_VECT  CODE    0x0000            ; processor reset vector
+	PAGESEL START
+	GOTO    START                   ; go to beginning of program
+    
+; TODO ADD INTERRUPTS HERE IF USED
+
+ISR CODE 0004H
+ 
+     INCF delaytime
+     INCF offsetB,1
+     
+     MOVLW b'11111111'
+     SUBWF delaytime,0
+
+     BTFSS STATUS,2
+     goto timenext
+    
+     BANKSEL COUNTDOUBLE
+     BTFSS COUNTDOUBLE,7
+     GOTO TIMENEXT2
+     INCF COUNTDOUBLE
+     
+     
+    TIMENEXT2 
+     BANKSEL COUNTLONG
+     BTFSS COUNTLONG,7
+     GOTO timenext 
+     INCF COUNTLONG
+     
+     timenext
+     CALL DECREASEB
+     CALL FLASH   
+     BCF INTCON,2
+ RETFIE 
+    
+MAIN_PROG CODE                      ; let linker place main program
+TABLEA:
+    ADDWF PCL,F
+    RETLW  0X3F ;0
+    RETLW  0X06 ;1
+    RETLW  0X5B ;2
+    RETLW  0X4F ;3
+    RETLW  0X66 ;4
+    RETLW  0X6D ;5
+    RETLW  0X7D ;6
+    RETLW  0X07 ;7
+    RETLW  0X7F ;8 
+    RETLW  0X6F ;9
+    RETLW  0X77 ;A   
+    RETLW  0X7C ;B
+    RETLW  0X39 ;C
+    RETLW  0X5E ;D
+    RETLW  0X79 ;E
+    RETLW  0X71 ;F
+    RETLW  0X3D ;G   10
+    RETLW  0X76 ;H   11
+    RETLW  0X30 ;I   12  
+    RETLW  0X38 ;L   13
+    RETLW  0X3E ;V   14
+    RETLW  0X6E ;Y   15
+    RETLW  0X00 ;NULL 16
+TABLEB:
+    ADDWF PCL,F
+    RETLW B'00001110'
+    RETLW B'00001101'
+    RETLW B'00001011'
+    RETLW B'00000111'
+    
+START
+    BANKSEL OSCCON  ; CP
+    MOVLW B'01101000';4MHZ
+    MOVWF OSCCON
+
+    BANKSEL ANSELB
+    CLRF ANSELB
+    
+    BANKSEL ANSELA
+    CLRF ANSELA
+    
+    BANKSEL TRISA
+    CLRF TRISA
+    
+    BANKSEL TRISB
+    CLRF TRISB
+    
+    BANKSEL TRISC
+    MOVLW B'11110000'
+    MOVWF TRISC
+    
+    BANKSEL WPUC  ;use the up to edge pull
+    MOVLW B'11110000'
+    MOVFW WPUC
+    
+    BANKSEL LATA
+    CLRF LATA
+    BANKSEL LATB
+    CLRF LATB
+    BANKSEL LATC
+    CLRF LATC
+    
+    BANKSEL INTCON 
+    MOVLW B'10100000'
+    MOVWF INTCON
+    
+    
+    BANKSEL OPTION_REG 
+    MOVLW B'01000000'
+    MOVWF OPTION_REG
+    
+    BANKSEL count0
+    CLRF count0
+    BANKSEL count1
+    CLRF count1
+    BANKSEL count2
+    CLRF count2
+    BANKSEL count3
+    CLRF count3
+    BANKSEL count4
+    CLRF count4
+    BANKSEL count5
+    CLRF count5
+    BANKSEL count6
+    CLRF count6
+    BANKSEL count7
+    CLRF count7
+    BANKSEL count8
+    CLRF count8
+    BANKSEL count9
+    CLRF count9
+    
+    CLRF delaytime
+    CLRF offsetA
+    CLRF offsetB
+    CLRF led0
+    CLRF led1
+    CLRF led2
+    CLRF led3
+    CLRF COUNTLONG
+    CLRF COUNTDOUBLE
+    CLRF FLAGCOUNT
+    BANKSEL PORTC
+    MOVLW B'00000000'
+    MOVFW PORTC
+    
+    CLRF PREBUTTONX
+    CLRF LASTBUTTON
+    CLRF STATE
+    MAINLOOP
+	    CALL LOOKUP
+	    BTFSS BUTTONX,6
+	    CALL FSM
+    GOTO MAINLOOP
+    LOOKUP
+    MOVLW B'10001111'
+    MOVWF BUTTONX 
+    CLRF BUTTONNUM
+     CLRF FLAG1
+	    MOVLW B'11110000'
+	    BANKSEL TRISC
+	    MOVWF TRISC
+
+	    BANKSEL PORTC
+	FIRSTLINE
+	    BTFSS PORTC,RC7
+	      INCF BUTTONNUM
+	    BTFSS PORTC,RC6
+	      INCF BUTTONNUM
+	    BTFSS PORTC,RC5
+	      INCF BUTTONNUM
+	    BTFSS PORTC,RC4
+	      INCF BUTTONNUM
+	    BTFSS PORTC,RC7
+	      MOVLW  9
+	    BTFSS PORTC,RC6
+	      MOVLW  8
+	    BTFSS PORTC,RC5
+	      MOVLW  7
+            BTFSS PORTC,RC4
+	      MOVLW  6
+	    INCF BUTTONNUM  
+	    DECFSZ BUTTONNUM,1
+	    MOVWF BUTTONX
+	    CALL FLAGJUGE	
+	    BTFSS FLAG1,1
+		GOTO SECONDLINE
+	    BTFSS FLAG1,0
+		CALL BLACK
+	    BTFSC FLAG1,0	
+	        CALL JUGE
+	    RETURN	
+	SECONDLINE
+	     CLRF FLAG
+	     MOVLW B'01110000'
+	     BANKSEL TRISC
+	     MOVWF TRISC
+	     MOVLW B'01110000'
+	     BANKSEL PORTC
+	     MOVWF PORTC
+	     MOVF PORTC
+	     BTFSS PORTC,RC6
+		INCF BUTTONNUM
+	     BTFSS PORTC,RC5
+		INCF BUTTONNUM
+	     BTFSS PORTC,RC4
+		INCF BUTTONNUM
+	     BTFSS PORTC,RC6
+		MOVLW 5
+	     BTFSS PORTC,RC5
+		MOVZLW 3
+	     BTFSS PORTC,RC4
+		MOVLW 1
+	     INCF BUTTONNUM
+	     DECFSZ BUTTONNUM,1
+		 MOVWF BUTTONX	   
+	     INCF BUTTONNUM
+	     DECFSZ BUTTONNUM,1
+		 BSF FLAG,0 
+	     
+	     MOVLW B'10110000'
+	     BANKSEL TRISC
+	     MOVWF TRISC
+	     MOVLW B'10110000'
+	     BANKSEL PORTC
+	     MOVWF PORTC
+	     MOVF PORTC
+	     
+	     BTFSS PORTC,RC5
+		INCF BUTTONNUM
+	     BTFSS PORTC,RC4
+		INCF BUTTONNUM
+	     BTFSS PORTC,RC5
+		MOVLW 2
+	     BTFSS PORTC,RC4
+		MOVLW 0
+	     BTFSS FLAG,0
+		 CALL NEXT
+	     
+	     MOVLW B'11010000'
+	     BANKSEL TRISC
+	     MOVWF TRISC
+	     MOVLW B'11010000'
+	     BANKSEL PORTC
+	     MOVWF PORTC
+	     MOVF PORTC
+	     
+	    BTFSS PORTC,RC4
+		INCF BUTTONNUM
+	    BTFSS PORTC,RC4
+		MOVLW 4
+		
+	    BTFSS FLAG,0
+	       CALL NEXT
+	       
+	    CALL FLAGJUGE	
+	    BTFSS FLAG1,1
+		RETURN
+	    BTFSS FLAG1,0
+		CALL BLACK
+	    BTFSC FLAG1,0	
+	        CALL JUGE
+	    RETURN 	
+	 return	
+	
+	;the following is somefunction
+	DECREASEB
+	   MOVLW B'00000011'
+	   ANDWF offsetB,1
+	return
+	BLACK
+	    MOVLW 0x16
+	    MOVWF led0
+	   ; BSF BUTTONX,7;ERRO OF TWO BUTTON
+	    CLRF BUTTONX
+	    BSF BUTTONX,6
+	    
+	    return
+	NEXT
+	    INCF BUTTONNUM
+	    DECFSZ BUTTONNUM,1   
+	    MOVWF BUTTONX
+	    INCF BUTTONNUM
+	    DECFSZ BUTTONNUM,1
+	    BSF FLAG,0
+	RETURN 
+	
+        FLASH
+	CALL CHOOSELED
+	MOVF offsetA,0 ;though offsetA to select the number in tableA
+	PAGESEL TABLEA
+	CALL TABLEA
+	BANKSEL LATA
+	MOVWF LATA
+	
+	MOVF offsetB,0;though offsetB to select the positon to display in tableB
+	PAGESEL TABLEB
+	CALL TABLEB
+	BANKSEL LATB
+	MOVWF LATB
+	
+	loop
+	    DECFSZ delay,1 ;stay to make the vision can be seen 
+	    goto loop
+	
+	MOVLW 0xff
+	MOVWF delay  ;reset the delay
+        return
+    
+    
+        CHOOSELED
+    	led0j  ;led 0 judgement
+	     BTFSC offsetB,0
+	     GOTO led1j ;offset equals 0 or 2
+	     BTFSC offsetB,1
+	     GOTO led2j
+	    ;offset equals 0
+	     MOVF led0,0   ;if to show led0,give led0 to offsetA
+	     MOVWF offsetA
+	     return
+    	led1j
+	     ;offset equals 1 or 3
+	     BTFSC offsetB,1
+	     GOTO led3j
+	     ;offset equals 1
+	     MOVF led1,0   ;if to show led1,give led1 to offsetA
+	     MOVWF offsetA
+	     return
+    	led2j
+	    ;offset equals 2
+	     MOVF led2,0   ;if to show led2,give led2 to offsetA
+	     MOVWF offsetA
+	     return
+    	led3j
+	     ;offset equals 3
+	     MOVF led3,0   ;if to show led3,give led3 to offsetA
+	     MOVWF offsetA
+	     return
+	FLAGJUGE
+	     INCF BUTTONNUM
+	     MOVLW B'00000000'
+	     DECFSZ BUTTONNUM,1
+	     MOVLW B'00000011'
+	     MOVWF FLAG1
+	     MOVLW B'00000010'
+	     DECFSZ BUTTONNUM,1
+	     ANDWF FLAG1,1
+	     INCF BUTTONNUM  
+	 RETURN    
+        JUGE
+	     MOVF BUTTONX,0
+             XORWF PREBUTTONX,0
+	     MOVWF FLAG
+	     MOVF BUTTONX,0
+	     MOVWF PREBUTTONX
+	     INCF FLAG
+	     DECFSZ FLAG,1
+	     GOTO JUGENEXT
+	     MOVF  BUTTONX,0
+	     MOVWF led0
+	     RETURN
+	     JUGENEXT
+	     MOVLW B'10001111'
+	     MOVWF BUTTONX
+	     RETURN
+     FSM
+	    MOVF STATE,0
+	    BRW  
+	    GOTO NONE;0
+	    GOTO PRESS;1
+	    GOTO UP;2
+	    GOTO DOUBLE;3
+	    GOTO LONG;4
+	 
+	 NONE 
+	    BTFSC BUTTONX,7;BUTTOMX OXFF?0JUMP
+	 ;Y
+	    RETURN
+	 ;N
+	    MOVF BUTTONX,0
+	    MOVWF LASTBUTTON
+	    MOVLW 1;PRESS
+	    MOVWF STATE
+	    RETURN
+	 
+	 PRESS
+	    BANKSEL FLAGCOUNT
+	    BTFSS FLAGCOUNT,0
+	    CALL COUNTNUM
+	    BANKSEL COUNTLONG
+	    BSF COUNTLONG,7
+	    BTFSS BUTTONX,7;BUTTOMX OXFF? 1JUMP
+	    GOTO PRESSN
+	; Y
+	    MOVLW 2;UP
+	    MOVWF STATE
+	    BANKSEL COUNTLONG
+	    CLRF COUNTLONG
+	    BANKSEL FLAGCOUNT
+	    CLRF FLAGCOUNT
+	    RETURN
+	 ;N
+	 PRESSN
+	 BANKSEL COUNTLONG
+	 MOVLW B'01111111'
+	 ANDWF COUNTLONG,1
+	 MOVLW B'00000100'
+	 SUBWF COUNTLONG,0;F-W
+	 BTFSS STATUS,0;W>fjump COUNT>PRE
+	    GOTO COUNTN
+	    
+	    COUNTY
+	    MOVLW 4;LONG
+	    MOVWF STATE
+	    BANKSEL COUNTLONG
+	    CLRF COUNTLONG
+	    BANKSEL FLAGCOUNT
+	    CLRF FLAGCOUNT
+	    RETURN
+	    
+	    COUNTN
+	    BANKSEL COUNTLONG
+	    BSF COUNTLONG,7
+	    RETURN
+
+	UP
+	    BANKSEL COUNTDOUBLE
+	    BSF COUNTDOUBLE,7
+	    BTFSS BUTTONX,7;BUTTOMX OXFF? 1JUMP
+	    GOTO UPN
+	;Y
+	    BANKSEL COUNTDOUBLE
+	    MOVLW B'01111111'
+	    ANDWF COUNTDOUBLE,1
+	    MOVLW 0X02
+	    SUBWF COUNTDOUBLE,0;F-W
+	    BTFSS STATUS,0;W>fjump COUNT>PRE
+	    GOTO COUNTDOUBLEN
+	    ;Y
+	    MOVLW 0X0A;CLICK
+	    MOVWF led1
+	    BANKSEL COUNTDOUBLE
+	    CLRF COUNTDOUBLE
+	    MOVLW 0;NONE
+	    MOVWF STATE
+	    RETURN
+	    COUNTDOUBLEN
+	    BANKSEL COUNTDOUBLE
+	    BSF COUNTDOUBLE,7
+	    RETURN
+	    
+	UPN
+	    MOVF LASTBUTTON,0
+	    SUBWF BUTTONX,0
+	    ;PRE=BUTTONX?
+	    BTFSS STATUS,2;0JUMP NOT EQUAL
+	    GOTO PREN
+	    ;Y
+		MOVLW 3;DOUBLE
+		MOVWF STATE
+		BANKSEL COUNTDOUBLE
+		CLRF COUNTDOUBLE
+		RETURN
+	    PREN
+		MOVLW 1;PRESS
+		MOVWF STATE
+		MOVLW 0X0A;CLICK
+		MOVWF led1
+		BANKSEL COUNTDOUBLE
+		CLRF COUNTDOUBLE
+		MOVF BUTTONX,0
+		MOVWF LASTBUTTON
+		RETURN
+	DOUBLE
+	    MOVLW 0X0B;
+	    MOVWF led1;DOUBLRCLICK
+	    BTFSS BUTTONX,7;BUTTOMX OXFF? 1JUMP
+	    ;N
+		RETURN
+	    ;Y
+		MOVLW 0;NONE
+		MOVWF STATE
+		RETURN
+	   
+	LONG
+	    MOVLW 0X0C;
+	    MOVWF led1;LONGCLICK
+	    BTFSS BUTTONX,7;BUTTOMX OXFF? 1JUMP
+	    ;N
+		RETURN
+	    ;Y
+		MOVLW 0;NONE
+		MOVWF STATE
+		RETURN
+		
+	COUNTNUM 
+	MOVF BUTTONX,0
+	BRW
+	
+	GOTO COUNTNUM0
+	GOTO COUNTNUM1
+	GOTO COUNTNUM2
+	GOTO COUNTNUM3
+	GOTO COUNTNUM4
+	GOTO COUNTNUM5
+	GOTO COUNTNUM6
+	GOTO COUNTNUM7
+	GOTO COUNTNUM8
+	GOTO COUNTNUM9
+	
+	
+	COUNTNUM0
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count0
+	INCF count0
+	MOVF count0,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count0,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM1
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count1
+	INCF count1
+	MOVF count1,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count1,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM2
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count2
+	INCF count2
+	MOVF count2,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count2,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM3
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count3
+	INCF count3
+	MOVF count3,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count3,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM4
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count4
+	INCF count4
+	MOVF count4,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count4,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM5
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count5
+	INCF count5
+	MOVF count5,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count5,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM6
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count6
+	INCF count6
+	MOVF count6,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count6,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM7
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count7
+	INCF count7
+	MOVF count7,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count7,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	
+	COUNTNUM8
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count8
+	INCF count8
+	MOVF count8,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count8,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+	COUNTNUM9
+	BANKSEL FLAGCOUNT
+	BSF FLAGCOUNT,0
+	BANKSEL count9
+	INCF count9
+	MOVF count9,0
+	ANDLW B'00001111'
+	MOVWF led3
+	SWAPF count9,0
+	ANDLW B'00001111'
+	MOVWF led2
+	RETURN
+ END

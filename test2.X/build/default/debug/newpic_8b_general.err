@@ -1,19 +1,9 @@
 Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 10 : Found label after column 1. (ORDER)
 Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 11 : Found label after column 1. (LOOPCNT)
 Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 12 : Found label after column 1. (LENGTH)
-Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 35 : Using default destination of 1 (file).
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 44 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 45 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 57 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 61 : Using default destination of 1 (file).
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 68 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 83 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 88 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 90 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 92 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 98 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 104 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 110 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 126 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[205] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 136 : Found directive in column 1. (END)
+Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 13 : Found label after column 1. (STARTTIME)
+Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 14 : Found label after column 1. (LOOP2NUM)
+Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 27 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 28 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 30 : Using default destination of 1 (file).
+Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 32 : Using default destination of 1 (file).

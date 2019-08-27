@@ -2,24 +2,8 @@ Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 10 :
 Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 11 : Found label after column 1. (LOOPCNT)
 Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 12 : Found label after column 1. (LENGTH)
 Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 13 : Found label after column 1. (STARTTIME)
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 34 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 35 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 36 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 48 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 53 : Using default destination of 1 (file).
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 61 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 63 : Using default destination of 1 (file).
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 80 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 84 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 86 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 89 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 98 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 101 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 106 : Found label after column 1. (STARTLOOP)
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 109 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 111 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 112 : Using default destination of 1 (file).
-Error[113]   /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 114 : Symbol not previously defined (NUM)
-Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 119 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[205] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 128 : Found directive in column 1. (END)
+Warning[207] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 14 : Found label after column 1. (LOOP2NUM)
+Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 27 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 28 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 30 : Using default destination of 1 (file).
+Message[305] /Users/luchixiang/MPLABXProjects/test2.X/newpic_8b_general.asm 32 : Using default destination of 1 (file).

@@ -1,19 +1,28 @@
 Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 10 : Found label after column 1. (ORDER)
 Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 11 : Found label after column 1. (LOOPCNT)
 Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 12 : Found label after column 1. (LENGTH)
-Message[305] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 35 : Using default destination of 1 (file).
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 44 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 45 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 57 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[305] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 61 : Using default destination of 1 (file).
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 13 : Found label after column 1. (STARTTIME)
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 14 : Found label after column 1. (LOOP2NUM)
+Message[305] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 40 : Using default destination of 1 (file).
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 48 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 54 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 55 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 56 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 68 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 83 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 90 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 93 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 72 : Using default destination of 1 (file).
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 79 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 95 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 97 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 99 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 105 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 111 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[205] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 118 : Found directive in column 1. (END)
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 100 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 102 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 104 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 110 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 119 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 122 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 123 : Found label after column 1. (STARTLOOP)
+Warning[207] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 124 : Found label after column 1. (LOOP2)
+Message[305] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 125 : Using default destination of 1 (file).
+Message[305] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 127 : Using default destination of 1 (file).
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 132 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 138 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 154 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] /Users/luchixiang/MPLABXProjects/experiment4.X/main.asm 164 : Found directive in column 1. (END)
